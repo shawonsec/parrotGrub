@@ -10,13 +10,18 @@ fi
 echo "Creating themes folder..."
 sudo mkdir -p /usr/share/grub/themes
 
-# Prompt the user for the GRUB background image
-echo "Please enter the path to your GRUB background image:"
-read -r background_image
+# Prompt the user for the GRUB background image using zenity
+background_image=$(zenity --file-selection --title="Select GRUB Background Image")
+
+# Check if the user cancelled the selection
+if [ -z "$background_image" ]; then
+    echo "No image selected. Exiting..."
+    exit 1
+fi
 
 # Check if the file exists
 if [ ! -f "$background_image" ]; then
-    echo "The file does not exist. Exiting..."
+    echo "The selected file does not exist. Exiting..."
     exit 1
 fi
 
@@ -82,4 +87,3 @@ echo "Updating GRUB configuration..."
 sudo update-grub
 
 echo "Custom GRUB theme configuration created and applied successfully."
-
