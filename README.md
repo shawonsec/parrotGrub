@@ -1,0 +1,2 @@
+# parrotGrub
+Customize grub bootloader
