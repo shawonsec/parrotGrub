@@ -74,12 +74,17 @@ terminal-border: "0"
 }
 EOL
 
+# Remove existing GRUB_THEME and GRUB_BACKGROUND lines if present
+sudo sed -i '/^GRUB_THEME=/d' /etc/default/grub
+sudo sed -i '/^GRUB_BACKGROUND=/d' /etc/default/grub
+
 # Add the specified lines to the /etc/default/grub file
 echo "Updating /etc/default/grub file..."
 sudo tee -a /etc/default/grub > /dev/null <<EOL
 
 #GRUB_INIT_TUNE="480 440 1"
 GRUB_THEME="/usr/share/grub/themes/theme.txt"
+GRUB_BACKGROUND="/usr/share/grub/themes/$background_image_name"
 EOL
 
 # Update GRUB configuration
